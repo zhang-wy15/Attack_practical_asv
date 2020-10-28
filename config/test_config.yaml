@@ -1,0 +1,23 @@
+# gpu number to use
+gpu: 9
+
+# model config
+model: ResNetSE34V2
+n_mels: 64
+encoder_type: ASP
+log_input: true
+eval_frames: 0
+initial_model: checkpoint/baseline_v2_ap.model
+
+# test path config
+enroll_path: /data/zhangweiyi/LibriSpeech_dataset/test_clean/wav
+wav_path: ./test_data_rir/
+enroll_file: ./datas/splits/enroll.txt
+test_file: ./datas/splits/test.txt
+
+# test parameter set
+cosine_similarity: true
+thresh: 0.4321
+seed: 123456
+intra_gender: true
+inter_gender: false

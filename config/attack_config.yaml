@@ -1,0 +1,38 @@
+# gpu number to use
+gpu: 9
+
+# model config
+model: ResNetSE34V2
+n_mels: 64
+encoder_type: ASP
+log_input: true
+initial_model: checkpoint/baseline_v2_ap.model
+
+# attack path config
+enroll_path: /data/zhangweiyi/LibriSpeech_dataset/test_clean/wav
+enroll_file: ./datas/splits/enroll.txt
+wav_path: /data/zhangweiyi/LibriSpeech_dataset/test_clean/wav
+train_file: ./datas/splits/train.txt
+test_file: ./datas/splits/test.txt
+out_path: ./out_intra
+attack_rir_path: /data/zhangweiyi/rir/IRs_release/BUT_IRs/train
+test_rir_path: /data/zhangweiyi/rir/IRs_release/BUT_IRs/test
+
+# attack parameters set
+num_train: 15
+cosine_similarity: true
+thresh: 0.4321
+margine: 0.3679
+noise_len: 1.0
+seed: 123456
+max_steps: 1500
+lr: 10
+max_delta: 1000
+momentum: 0.8
+batch: 5
+e1: 1e-3
+e2: 4e-2
+gamma: 10.0
+rir: false
+intra_gender: true
+inter_gender: false

@@ -1,0 +1,14 @@
+# gpu number to use
+gpu: 9
+
+# model config
+model: ResNetSE34V2
+n_mels: 64
+encoder_type: ASP
+log_input: true
+eval_frames: 0
+initial_model: checkpoint/baseline_v2_ap.model
+
+# path config
+test_path: /data/zhangweiyi/LibriSpeech_dataset/test_clean/wav
+test_list: ./datas/librispeech_veri_test.txt
