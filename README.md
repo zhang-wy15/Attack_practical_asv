@@ -52,9 +52,9 @@ python Testattack.py --config config/test_config.yaml
 |Attack type          |Steps|ASR(%)|WER(%)|SNR(dB)|
 |:-------------------:|:---:|:----:|:----:|:-----:|
 |Clean data           |N/A  |0     |12.95 |N/A    |
-|intra-gender/baseline|236  |99.21 |32.33 |16.90  |
-|intra-gender/ours    |846  |98.88 |19.43 |23.66  |
-|inter-gender/baseline|617  |97.20 |37.57 |16.55  |
+|intra-gender/baseline|236  |98.43 |32.33 |16.90  |
+|intra-gender/ours    |846  |98.65 |19.43 |23.66  |
+|inter-gender/baseline|617  |96.63 |37.57 |16.55  |
 |inter-gender/ours    |1872 |96.40 |21.53 |22.26  |
 
 ### 2. Digital attack with RIR
@@ -62,9 +62,9 @@ python Testattack.py --config config/test_config.yaml
 |Attack type          |Steps|ASR(%)|WER(%)|
 |:-------------------:|:---:|:----:|:----:|
 |Clean data with rir  |N/A  |0     |29.17 |
-|intra-gender/baseline|279  |98.43 |79.33 |
+|intra-gender/baseline|279  |99.21 |79.33 |
 |intra-gender/ours    |1003 |98.82 |66.48 |
-|inter-gender/baseline|748  |96.63 |82.71 |
+|inter-gender/baseline|748  |97.20 |82.71 |
 |inter-gender/ours    |1525 |96.41 |72.47 |
 
 ### 3. Physical attack
