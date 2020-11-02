@@ -7,6 +7,7 @@ from augment import Augment_wave
 import argparse
 
 parser = argparse.ArgumentParser(description = "generate_parameter")
+parser.add_argument('--rir', dest='rir', action='store_true', help='Whether do reverberation')
 parser.add_argument('--rir_root', type=str, default='/data/zhangweiyi/rir/IRs_release/BUT_IRs/test', help='Test rir wavs path')
 parser.add_argument('--wav_root', type=str, default='/data/zhangweiyi/LibriSpeech_dataset/test_clean/wav', help='Wav root path')
 parser.add_argument('--wav_file', type=str, default='./datas/splits/test.txt', help='Wav file contains the speaker and its audio names')
@@ -14,7 +15,8 @@ parser.add_argument('--noise_root', type=str, default='./out_intra_rir_norm2/ste
 parser.add_argument('--out_root', type=str, default='./test_data_rir', help='Output wav save path')
 args = parser.parse_args()
 
-a = Augment_wave(fs=16000, rir_path=args.rir_root, split='test')
+if args.rir:
+    a = Augment_wave(fs=16000, rir_path=args.rir_root, split='test')
 
 def loadWAV(filename):
     sample_rate, audio  = wavfile.read(filename)
@@ -22,17 +24,6 @@ def loadWAV(filename):
         audio = audio[:,0]
     feat = np.asarray(audio).astype(np.float)
     return feat
-
-def reverb_np(s1, s2):
-    n = s1.shape[0]
-    a = np.fft.rfft(s1, n)
-    b = np.fft.rfft(s2, n)
-    return np.fft.irfft(a*b, n)
-
-# rir wavs list
-rirs = os.listdir(args.rir_root)
-for i in range(len(rirs)):
-    rirs[i] = os.path.join(args.rir_root, rirs[i])
 
 # speaker wavs list
 with open(args.wav_file, 'r') as f:
@@ -72,6 +63,7 @@ for speaker in speaker_wavs:
         noise_data_tmp = np.tile(noise_data, wav_data.shape[0]//noise_data.shape[0] + 1)[0:wav_data.shape[0]]
         wav_data = wav_data + noise_data_tmp
         wav_data = np.clip(wav_data, -2**15, 2**15-1)
-        wav_data = a.inject(wav_data)
-        wav_data = np.clip(wav_data, -2**15, 2**15-1)
+        if args.rir:
+            wav_data = a.inject(wav_data)
+            wav_data = np.clip(wav_data, -2**15, 2**15-1)
         wavfile.write(wav_path_new, 16000, np.asarray(wav_data, dtype=np.int16))

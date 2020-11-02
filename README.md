@@ -27,19 +27,69 @@ python attack.py --config config/attack_config.yaml
 ```
 
 ### 5. Evaluate adversarial examples
+When generating every perturbation, the testing process followed.You could find the test result in ```out_path```. But it also should support evaluating the perturbation separately if using different test audios of the adversary. 
 
+To evaluate the attack success rate of audio adversarial examples, you should first combine the adversarial perturbation and test audios. You can use the following command to generate adversarial examples. Change the ```wav_root``` to your data save path and ```noise_root``` to the adversarial perturbation save path.
+
+```
+python generate_adv_examples.py --wav_root /path/to/wav_data --wav_file ./datas/splits/test.txt --noise_root /path/to/adversarial_perturbation --out_root ./output
+```
+
+If your training process includes RIR simulation, you should run the following command to generate adversarial examples with test RIRs.
+
+```
+python generate_adv_examples.py --rir --rir_root /path/to/rir_wavs --wav_root /path/to/wav_data --wav_file ./datas/splits/test.txt --noise_root /path/to/adversarial_perturbation --out_root ./output
+```
+
+After generating the adversarial examples, you can change the ```path config``` in ```config/test_config.yaml``` and run the following command to get the attack success rate.
 ```
 python Testattack.py --config config/test_config.yaml
 ```
 
 ## Experimental results
-Coming soon.
+### 1. Digital attack without RIR
 
-Physical attack:
+|Attack type          |Steps|ASR(%)|WER(%)|SNR(dB)|
+|:-------------------:|:---:|:----:|:----:|:-----:|
+|Original             |N/A  |0     |12.95 |N/A    |
+|intra-gender/baseline|236  |98.43 |32.33 |16.90  |
+|intra-gender/ours    |846  |98.65 |19.43 |23.66  |
+|inter-gender/baseline|617  |96.63 |37.57 |16.55  |
+|inter-gender/ours    |1872 |96.40 |21.53 |22.26  |
+
+### 2. Digital attack with RIR
+
+|Attack type          |Steps|ASR(%)|WER(%)|SNR(dB)|
+|:-------------------:|:---:|:----:|:----:|:-----:|
+|Original             |N/A  |0     |12.95 |N/A    |
+|intra-gender/baseline|236  |98.43 |32.33 |16.90  |
+|intra-gender/ours    |846  |98.65 |19.43 |23.66  |
+|inter-gender/baseline|617  |96.63 |37.57 |16.55  |
+|inter-gender/ours    |1872 |96.40 |21.53 |22.26  |
+
+### 3. Physical attack
+
+Physical attack setting scenario:
 
 <div align="center">  
 <img src="./images/physical_attack.jpg" width = "474" height = "355"/>
 </div>
+
+Intra-gender attack
+|Attack type          |ASR(%)|WER(%)|CER(%)|
+|:-------------------:|:----:|:----:|:-----:|
+|Clean                |0     |11.42 |5.78   |
+|Gaussian             |0     |17.77 |10.06  |
+|Baseline             |80.00 |21.82 |14.48  |
+|Ours                 |100.00|14.97 |7.53   |
+
+Inter-gender attack
+|Attack type          |ASR(%)|WER(%)|CER(%)|
+|:-------------------:|:----:|:----:|:-----:|
+|Clean                |0     |11.42 |5.78   |
+|Gaussian             |0     |17.77 |10.06  |
+|Baseline             |80.00 |21.82 |14.48  |
+|Ours                 |100.00|14.97 |7.53   |
 
 ## References
 Our ASV model code is cloned from their project.
