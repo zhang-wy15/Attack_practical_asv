@@ -1,5 +1,7 @@
 # Attack_practical_asv
-This is the code and note for our ICASSP 2021 submission: "Attack on practical speaker verification system using universal adversarial perturbations"
+This is the code for our ICASSP 2021 accepted paper: "Attack on practical speaker verification system using universal adversarial perturbations"
+
+Paper link: https://ieeexplore.ieee.org/abstract/document/9413467  or  https://arxiv.org/abs/2105.09022
 
 <div align="center">  
 <img src="./images/practical.jpg" width = "575" height = "184"/>
@@ -10,7 +12,7 @@ This is the code and note for our ICASSP 2021 submission: "Attack on practical s
 You should download [LibriSpeech test-clean data set](http://www.openslr.org/resources/12/test-clean.tar.gz) and [BUT Speech@FIT Reverb Database](https://obj.umiacs.umd.edu/gammadata/dataset/eq/IRs_release.zip). Remember the path where they are saved.
 
 ### 2. Pretrained models
-Their [model](https://github.com/clovaai/voxceleb_trainer) is used as our speaker embedding encoder. Please download the pretrained model [here](http://www.robots.ox.ac.uk/~joon/data/baseline_v2_ap.model) and put it in ``./checkpoint/`` folder. To evaluate EER and minDCF for the pretrained model, you can change the ```path config``` in ```./config/eval_libri_speaker.yaml``` and run the following command. You will a **1.36% EER** with **0.4321 score threshold** on LibriSpeech test-clean data set.
+Their [model](https://github.com/clovaai/voxceleb_trainer) is used as our speaker embedding encoder. Please download the pretrained model [here](http://www.robots.ox.ac.uk/~joon/data/baseline_v2_ap.model) and put it in ``./checkpoint/`` folder. To evaluate EER and minDCF for the pretrained model, you can change the ```path config``` in ```./config/eval_libri_speaker.yaml``` and run the following command. You will get a **1.36% EER** with **0.4321 score threshold** on LibriSpeech test-clean data set.
 
 ```
 python Testspeaker.py --config config/eval_libri_speaker.yaml
@@ -46,7 +48,7 @@ After generating the adversarial examples, you can change the ```path config``` 
 python Testattack.py --config config/test_config.yaml
 ```
 
-## Experimental results
+## Experimental results in our paper
 ### 1. Digital attack without RIR
 
 |Attack type          |Steps|ASR(%)|WER(%)|SNR(dB)|
@@ -99,10 +101,12 @@ Our ASV model code is cloned from their project.
 If you find our paper is useful for your work, please cite the following.
 
 ```
-@unpublished{wei2021practical,
-  title={Attack on practical speaker verification system using universal adversarial perturbations},
-  author={Weiyi, Zhang and Shuning, Zhao and Le, Liu and Jianmin, Li and Xingliang, Cheng and Thomas, Fang Zheng and Xiaolin, Hu},
-  note = {Submitted},
-  year={2021}
+@inproceedings{zhang2021attack,
+  title={Attack on Practical Speaker Verification System Using Universal Adversarial Perturbations},
+  author={Zhang, Weiyi and Zhao, Shuning and Liu, Le and Li, Jianmin and Cheng, Xingliang and Zheng, Thomas Fang and Hu, Xiaolin},
+  booktitle={ICASSP 2021-2021 IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP)},
+  pages={2575--2579},
+  year={2021},
+  organization={IEEE}
 }
 ```
